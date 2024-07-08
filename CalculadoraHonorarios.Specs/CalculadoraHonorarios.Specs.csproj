@@ -22,4 +22,8 @@
         <Using Include="Xunit" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CalculadoraHonorarios\CalculadoraHonorarios.csproj" />
+    </ItemGroup>
+
 </Project>
