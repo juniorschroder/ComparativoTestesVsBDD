@@ -2,20 +2,21 @@ namespace CalculadoraHonorarios.Tests;
 
 public class CalculadoraHonorariosTests
 {
-    private const decimal ValorCausa = 10000m;
-    
-    [Fact]
-    public void CalcularHonorarios_ValoresValidos_CalculaCorretamente()
+    [Theory]
+    [InlineData(10000, 10, 1000)]
+    [InlineData(200000, 5, 10000)]
+    [InlineData(35000, 17.75, 6212.5)]
+    public void CalcularHonorarios_ValoresValidos_CalculaCorretamente(decimal valorCausa, decimal percentualHonorarios, 
+        decimal valorHonorarios)
     {
         // Arrange
         var calculadoraHonorarios = new CalculadoraHonorarios();
-        var percentual = 10m;
-
+        
         // Act
-        decimal resultado = calculadoraHonorarios.CalcularHonorarios(ValorCausa, percentual);
+        var resultado = calculadoraHonorarios.CalcularHonorarios(valorCausa, percentualHonorarios);
 
         // Assert
-        Assert.Equal(1000m, resultado);
+        Assert.Equal(valorHonorarios, resultado);
     }
 
     [Fact]
@@ -24,8 +25,9 @@ public class CalculadoraHonorariosTests
         // Arrange
         var calculadoraHonorarios = new CalculadoraHonorarios();
         var percentual = -5m;
+        const decimal valorCausa = 10000m;
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => calculadoraHonorarios.CalcularHonorarios(ValorCausa, percentual));
+        Assert.Throws<ArgumentException>(() => calculadoraHonorarios.CalcularHonorarios(valorCausa, percentual));
     }
 }
